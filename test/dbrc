@@ -1,0 +1,6 @@
+# vim: ft=yaml
+---
+mock1:
+  driver: Mock
+  username: some_username
+  password: some_password

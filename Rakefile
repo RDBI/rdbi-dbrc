@@ -13,6 +13,7 @@ begin
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
    
     gem.add_dependency 'rdbi'
+    gem.add_development_dependency 'rdbi-driver-mock'
     gem.add_development_dependency 'test-unit'
   end
   Jeweler::GemcutterTasks.new
