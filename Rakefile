@@ -6,11 +6,14 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "rdbi-dbrc"
     gem.summary = %Q{Implementation of dbi-dbrc for RDBI}
-    gem.description = %Q{TODO: longer description of your gem}
+    gem.description = %Q{Implementation of dbi-dbrc for RDBI}
     gem.email = "erik@hollensbe.org"
     gem.homepage = "http://github.com/erikh/rdbi-dbrc"
     gem.authors = ["Erik Hollensbe"]
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+   
+    gem.add_dependency 'rdbi'
+    gem.add_development_dependency 'test-unit'
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
@@ -41,10 +44,13 @@ task :test => :check_dependencies
 
 task :default => :test
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
+require 'hanna'
+require 'rdoc/task'
+RDoc::Task.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
+  rdoc.options.push '-f', 'hanna'
+  rdoc.main = 'README.rdoc'
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "rdbi-dbrc #{version}"
   rdoc.rdoc_files.include('README*')
