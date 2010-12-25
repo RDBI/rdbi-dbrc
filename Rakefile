@@ -45,12 +45,12 @@ task :test => :check_dependencies
 
 task :default => :test
 
-require 'hanna'
+gem 'rdoc'
 require 'rdoc/task'
 RDoc::Task.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
-  rdoc.options.push '-f', 'hanna'
+  rdoc.generator = 'hanna'
   rdoc.main = 'README.rdoc'
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title = "rdbi-dbrc #{version}"

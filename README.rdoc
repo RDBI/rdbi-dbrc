@@ -1,6 +1,7 @@
 = rdbi-dbrc
 
-Description goes here.
+RDBI::DBRC is a convenience layer for storing connections. See RDBI::DBRC for
+more information.
 
 == Note on Patches/Pull Requests
  
