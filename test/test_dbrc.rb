@@ -19,4 +19,26 @@ class TestDBRC < Test::Unit::TestCase
     assert(dbh.connect_args.has_key?(:password))
     assert_equal(dbh.connect_args[:password], "some_password") 
   end
+
+  def test_03_pool
+    pool = RDBI::DBRC.pool_connect(:mock1)
+
+    assert(pool)
+    assert_kind_of(RDBI::Pool, pool)
+    assert_equal(pool.max, 1)
+    assert_nothing_raised { pool.get_dbh }
+    assert_equal(RDBI::Pool[:mock1], pool)
+
+    pool = RDBI::DBRC.pool_connect(:mock1, 10)
+    assert(pool)
+    assert_equal(pool.max, 10)
+    assert_nothing_raised { 10.times { pool.get_dbh } }
+
+    pool = RDBI::DBRC.pool_connect(:mock1, 5, :test)
+
+    assert(pool)
+    assert_equal(pool.max, 5)
+    assert_nothing_raised { 5.times { pool.get_dbh } }
+    assert_equal(RDBI::Pool[:test], pool)
+  end
 end

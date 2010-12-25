@@ -40,8 +40,15 @@ module RDBI # :nodoc:
       end
 
       driver = role_data.delete(:driver)
-
       RDBI.connect(driver, role_data)
+    end
+
+    #
+    # Get a RDBI::Pool for the specified role. Defaults to 1 pooled connection.
+    # If no pool name is supplied, will use the role name as the pool name.
+    #
+    def self.pool_connect(role, connections=1, pool_name=role)
+      RDBI::Pool.new(pool_name, self.roles[role], connections)
     end
 
     # 
@@ -62,3 +69,4 @@ module RDBI # :nodoc:
     end
   end
 end
+
