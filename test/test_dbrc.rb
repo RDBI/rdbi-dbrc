@@ -10,6 +10,7 @@ class TestDBRC < Test::Unit::TestCase
   end
 
   def test_02_connect
+    # test ordinary form
     dbh = RDBI::DBRC.connect(:mock1)
     assert(dbh)
     assert(dbh.connected?)
@@ -18,6 +19,21 @@ class TestDBRC < Test::Unit::TestCase
     assert_equal(dbh.connect_args[:username], "some_username") 
     assert(dbh.connect_args.has_key?(:password))
     assert_equal(dbh.connect_args[:password], "some_password") 
+    assert_nothing_raised { dbh.disconnect }
+
+    # test block form
+    block_executed = false
+    RDBI::DBRC.connect(:mock1) do |dbh|
+      block_executed = true
+      assert(dbh)
+      assert(dbh.connected?)
+      assert_kind_of(RDBI::Driver::Mock, dbh.driver)
+      assert(dbh.connect_args.has_key?(:username))
+      assert_equal(dbh.connect_args[:username], "some_username") 
+      assert(dbh.connect_args.has_key?(:password))
+      assert_equal(dbh.connect_args[:password], "some_password") 
+    end
+    assert(block_executed)
   end
 
   def test_03_pool
