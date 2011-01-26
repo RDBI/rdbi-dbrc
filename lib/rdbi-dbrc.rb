@@ -23,6 +23,9 @@ module RDBI # :nodoc:
   #
   #     RDBI.connect(:SQLite3, :database => ":memory:")
   #
+  # If a block is given, it is executed with the newly connected dbh as its
+  # sole argument, just a for RDBI.connect.
+  #
   # The file lives by default in $HOME/.dbrc. Don't like that? Set the +DBRC+
   # environment parameter:
   #
@@ -32,7 +35,7 @@ module RDBI # :nodoc:
     #
     # Connect to the specified role.
     #
-    def self.connect(role)
+    def self.connect(role, &block)
       role_data = self.roles[role.to_sym]
 
       unless role_data
@@ -40,7 +43,7 @@ module RDBI # :nodoc:
       end
 
       driver = role_data.delete(:driver)
-      RDBI.connect(driver, role_data)
+      RDBI.connect(driver, role_data, &block)
     end
 
     #
