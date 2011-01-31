@@ -1,0 +1,11 @@
+(in /Users/erikh/repos/rdbi/rdbi-dbrc)
+=== NEXT / 2011-01-30
+
+* Test block invocation of RDBI::DBRC.connect() [pilcrow]
+* Support and document block argument to RDBI::DBRC.connect(). [pilcrow]
+* Version bump to 0.2.0
+* * pool_connect implementation. Tested and Documented.
+* * Documentation.
+* Regenerate gemspec for version 0.1.0
+* * Bundler gemspec
+

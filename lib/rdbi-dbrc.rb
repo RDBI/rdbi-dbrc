@@ -32,6 +32,9 @@ module RDBI # :nodoc:
   #     DBRC=/tmp/dbrc my_rdbi_program.rb
   #
   module DBRC
+
+    VERSION = "0.3.0"
+
     #
     # Connect to the specified role.
     #
